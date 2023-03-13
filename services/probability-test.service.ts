@@ -3,7 +3,7 @@ import { NumericService } from "./numeric.service";
 export class ProbabilityService {
   private readonly numericService = new NumericService();
 
-  millerRabinTest(p: number) {
+  millerRabinTest(p: bigint) {
     const k = 10;
 
     for (let i = 0; i < k; i++) {

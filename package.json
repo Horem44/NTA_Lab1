@@ -4,11 +4,14 @@
   "description": "NTA Lab1 ",
   "main": "index.js",
   "scripts": {
-    "start": "tsc index.ts && node index.js"
+    "start": "tsc index.ts --outDir ./dist && node ./dist/index.js"
   },
   "author": "yegorov ilya, denys kobets FI-03",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^18.15.2"
+  },
+  "dependencies": {
+    "big-integer": "^1.6.51"
   }
 }
