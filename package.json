@@ -7,5 +7,8 @@
     "start": "tsc index.ts && node index.js"
   },
   "author": "yegorov ilya, denys kobets FI-03",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^18.15.2"
+  }
 }
