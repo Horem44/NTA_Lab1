@@ -1,7 +1,12 @@
-import * as bigInt from 'big-integer';
+import * as bigInt from "big-integer";
+
+interface INumberDecomposition {
+  d: bigint;
+  s: bigint;
+}
 
 export class NumericService {
-  gcd(x: bigint, p: bigint) {
+  public gcd(x: bigint, p: bigint): bigint {
     let t: bigint;
 
     while (p) {
@@ -13,12 +18,12 @@ export class NumericService {
     return x;
   }
 
-  bigintDecomposition(p: bigint) {
+  public numberDecomposition(p: bigint): INumberDecomposition {
     let s = BigInt(0);
     p = p - BigInt(1);
 
     while (p % BigInt(2) === BigInt(0)) {
-      p /= BigInt(BigInt(2));
+      p /= BigInt(2);
       s++;
     }
 
@@ -28,22 +33,22 @@ export class NumericService {
     };
   }
 
-  getRandomFromInterval(p: bigint) {
+  public getRandomFromInterval(p: bigint): bigint {
     return BigInt(bigInt.randBetween(1, p).valueOf());
   }
 
-  toBinary(n: bigint) {
-    let binarybigint = [];
+  public toBinary(n: bigint): bigint[] {
+    const binaryNumber = [];
 
     while (n >= BigInt(1)) {
-      binarybigint.push(n % BigInt(BigInt(2)));
+      binaryNumber.push(n % BigInt(2));
       n = n / BigInt(2);
     }
 
-    return binarybigint.reverse();
+    return binaryNumber.reverse();
   }
 
-  moduloHornerScheme(n: bigint, pow: bigint, m: bigint) {
+  public moduloHornerScheme(n: bigint, pow: bigint, m: bigint): bigint {
     let binaryPow = this.toBinary(pow);
     let result = BigInt(1);
 
@@ -62,18 +67,22 @@ export class NumericService {
     return result;
   }
 
-  ifStrongPseudoprime(p: bigint, x: bigint): boolean {
-    const bigintDecomposition = this.bigintDecomposition(p);
+  public ifStrongPseudoprime(p: bigint, x: bigint): boolean {
+    const numberDecomposition = this.numberDecomposition(p);
 
     if (
-      this.moduloHornerScheme(x, bigintDecomposition.d, p) === BigInt(1) ||
-      this.moduloHornerScheme(x, bigintDecomposition.d, p) === p - BigInt(1)
+      this.moduloHornerScheme(x, numberDecomposition.d, p) === BigInt(1) ||
+      this.moduloHornerScheme(x, numberDecomposition.d, p) === p - BigInt(1)
     ) {
       return true;
     }
 
-    for (let i = 1; i < bigintDecomposition.s; i++) {
-      x = this.moduloHornerScheme(x, bigintDecomposition.d * BigInt(Math.pow(2, i)), p);
+    for (let i = 1; i < numberDecomposition.s; i++) {
+      x = this.moduloHornerScheme(
+        x,
+        numberDecomposition.d * BigInt(Math.pow(2, i)),
+        p
+      );
 
       if (x === p - BigInt(1)) {
         return true;
