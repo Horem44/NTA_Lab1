@@ -1,10 +1,9 @@
 import { NumericService } from "./numeric.service";
+import { ProbabilityService } from "./probability-test.service";
 
-const numeri = new NumericService();
+const probabilityService = new ProbabilityService();
 
-console.log(numeri.ifStrongPseudoprime(3825123056546413051, 9));
-
-// console.log(numeri.moduloHornerScheme(2, 15000, 113));
+console.log(probabilityService.millerRabinTest(11587));
 
 
 

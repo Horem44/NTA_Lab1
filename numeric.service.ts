@@ -30,6 +30,36 @@ export class NumericService {
     return Math.floor(Math.random() * (p - 1) + 1);
   }
 
+  toBinary(n: number) {
+    let binaryNumber = [];
+
+    while (n >= 1) {
+      binaryNumber.push(n % 2);
+      n = Math.floor(n / 2);
+    }
+
+    return binaryNumber.reverse();
+  }
+
+  moduloHornerScheme(n: number, pow: number, m: number) {
+    let binaryPow = this.toBinary(pow);
+    let result = 1;
+
+    for (let i = 0; i < binaryPow.length; i++) {
+      if (binaryPow[i] === 1) {
+        result = (result * n) % m;
+      }
+
+      if (i === binaryPow.length - 1) {
+        break;
+      }
+
+      result = (result * result) % m;
+    }
+
+    return result;
+  }
+
   ifStrongPseudoprime(p: number, x: number): boolean {
     const numberDecomposition = this.numberDecomposition(p);
 
@@ -49,35 +79,5 @@ export class NumericService {
     }
 
     return false;
-  }
-
-  private toBinary(n: number) {
-    let binaryNumber = [];
-
-    while (n >= 1) {
-      binaryNumber.push(n % 2);
-      n = Math.floor(n / 2);
-    }
-
-    return binaryNumber.reverse();
-  }
-
-  private moduloHornerScheme(n: number, pow: number, m: number) {
-    let binaryPow = this.toBinary(pow);
-    let result = 1;
-
-    for (let i = 0; i < binaryPow.length; i++) {
-      if (binaryPow[i] === 1) {
-        result = (result * n) % m;
-      }
-
-      if (i === binaryPow.length - 1) {
-        break;
-      }
-
-      result = (result * result) % m;
-    }
-
-    return result;
   }
 }
