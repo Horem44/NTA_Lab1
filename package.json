@@ -1,0 +1,11 @@
+{
+  "name": "nta_lab1",
+  "version": "1.0.0",
+  "description": "NTA Lab1 ",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsc index.ts && node index.js"
+  },
+  "author": "yegorov ilya, denys kobets FI-03",
+  "license": "ISC"
+}
