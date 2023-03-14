@@ -91,4 +91,11 @@ export class NumericService {
 
     return false;
   }
+
+  public splitToNumbers(n: bigint) {
+    return n
+      .toString()
+      .split("")
+      .map((a) => BigInt(a));
+  }
 }
