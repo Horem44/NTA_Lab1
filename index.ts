@@ -17,10 +17,13 @@ const factorizationService = new FactorizationService(primes);
 // );
 
 timeService.getExecutionTime(
-  factorizationService.trialDivisionMethod.bind(factorizationService),
-  [BigInt("49")],
-  "Trial Division method"
+  factorizationService.pollardMethod.bind(factorizationService),
+  [BigInt("58156853827224043")],
+  "Pollard method"
 )
+
+
+
 
 
 
