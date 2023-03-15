@@ -19,11 +19,11 @@ export class NumericService {
   }
 
   public numberDecomposition(p: bigint): INumberDecomposition {
-    let s = BigInt(0);
-    p = p - BigInt(1);
+    let s = 0n;
+    p = p - 1n;
 
-    while (p % BigInt(2) === BigInt(0)) {
-      p /= BigInt(2);
+    while (p % 2n === 0n) {
+      p /= 2n;
       s++;
     }
 
@@ -40,9 +40,9 @@ export class NumericService {
   public toBinary(n: bigint): bigint[] {
     const binaryNumber = [];
 
-    while (n >= BigInt(1)) {
-      binaryNumber.push(n % BigInt(2));
-      n = n / BigInt(2);
+    while (n >= 1) {
+      binaryNumber.push(n % 2n);
+      n = n / 2n;
     }
 
     return binaryNumber.reverse();
@@ -50,10 +50,10 @@ export class NumericService {
 
   public moduloHornerScheme(n: bigint, pow: bigint, m: bigint): bigint {
     let binaryPow = this.toBinary(pow);
-    let result = BigInt(1);
+    let result = 1n;
 
     for (let i = 0; i < binaryPow.length; i++) {
-      if (binaryPow[i] === BigInt(1)) {
+      if (binaryPow[i] === 1n) {
         result = (result * n) % m;
       }
 
@@ -71,8 +71,8 @@ export class NumericService {
     const numberDecomposition = this.numberDecomposition(p);
 
     if (
-      this.moduloHornerScheme(x, numberDecomposition.d, p) === BigInt(1) ||
-      this.moduloHornerScheme(x, numberDecomposition.d, p) === p - BigInt(1)
+      this.moduloHornerScheme(x, numberDecomposition.d, p) === 1n ||
+      this.moduloHornerScheme(x, numberDecomposition.d, p) === p - 1n
     ) {
       return true;
     }
@@ -84,7 +84,7 @@ export class NumericService {
         p
       );
 
-      if (x === p - BigInt(1)) {
+      if (x === p - 1n) {
         return true;
       }
     }

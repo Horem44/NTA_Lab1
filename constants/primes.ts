@@ -1,3 +1,2 @@
-export const primes: bigint[] = [
-  2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47,
-].map((n) => BigInt(n));
+export const primesUrl =
+  "https://raw.githubusercontent.com/koorukuroo/Prime-Number-List/master/primes.json";
