@@ -1,5 +1,4 @@
 import { NumericService } from "./numeric.service";
-import { PrimesService } from "./primes.service";
 
 export class FactorizationService {
   private readonly numericService = new NumericService();

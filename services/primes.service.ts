@@ -1,6 +1,6 @@
 import { catchError, from, map, Observable, take, throwError } from "rxjs";
 import axios, { AxiosError } from "axios";
-import { primesUrl } from "../constants/primes";
+import { primesUrl } from "../constants";
 
 interface IPrimesResponse {
   [key: string]: number;
