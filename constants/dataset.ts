@@ -1,10 +1,10 @@
 export const dataset: bigint[] =
   process.argv.slice(2).length > 0
     ? process.argv.slice(2).map((argv) => {
-        if (!isNaN(Number(argv)) && !isNaN(parseFloat(argv))) {
+        if (!isNaN(Number(argv)) && !isNaN(parseFloat(argv)) && parseFloat(argv) > 0) {
           return BigInt(argv);
         } else {
-          console.error("Invalid arguments! Provide numbers only!");
+          console.error("Invalid arguments! Provide positive numbers only!");
           process.exit(-1);
         }
       })
