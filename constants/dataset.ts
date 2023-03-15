@@ -1,17 +1,6 @@
-export const dataset: bigint[] =
-  process.argv.slice(2).length > 0
-    ? process.argv.slice(2).map((argv) => {
-        if (!isNaN(Number(argv)) && !isNaN(parseFloat(argv)) && parseFloat(argv) > 0) {
-          return BigInt(argv);
-        } else {
-          console.error("Invalid arguments! Provide positive numbers only!");
-          process.exit(-1);
-        }
-      })
-    : (() => {
-        console.error("Empty arguments list!");
-        process.exit(-1);
-      })();
+import { CLIService } from "../services";
+
+export const DATASET: bigint[] = CLIService.getCLIArgumentsArray();
 
 // [
 //     901667173167834173n,

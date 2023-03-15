@@ -1,6 +1,6 @@
 import { catchError, from, map, Observable, take, throwError } from "rxjs";
 import axios, { AxiosError } from "axios";
-import { primesUrl } from "../constants";
+import { PRIMES_URL } from "../constants";
 
 interface IPrimesResponse {
   [key: string]: number;
@@ -10,7 +10,7 @@ export class PrimesService {
   private readonly primesAmount = 10000;
 
   public primes$: Observable<bigint[]> = from(
-    axios<IPrimesResponse>(primesUrl)
+    axios<IPrimesResponse>(PRIMES_URL)
   ).pipe(
     take(1),
     map((response) =>

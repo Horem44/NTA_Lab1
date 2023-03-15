@@ -34,7 +34,7 @@ export class NumericService {
   }
 
   public getRandomFromInterval(p: bigint): bigint {
-    return BigInt(bigInt.randBetween(1, p).valueOf());
+    return BigInt(bigInt.randBetween(1, p - 1n).valueOf());
   }
 
   public toBinary(n: bigint): bigint[] {
@@ -69,6 +69,7 @@ export class NumericService {
 
   public ifStrongPseudoprime(p: bigint, x: bigint): boolean {
     const numberDecomposition = this.numberDecomposition(p);
+    let x_r: bigint;
 
     if (
       this.moduloHornerScheme(x, numberDecomposition.d, p) === 1n ||
@@ -78,13 +79,13 @@ export class NumericService {
     }
 
     for (let i = 1; i < numberDecomposition.s; i++) {
-      x = this.moduloHornerScheme(
+      x_r = this.moduloHornerScheme(
         x,
         numberDecomposition.d * BigInt(Math.pow(2, i)),
         p
       );
 
-      if (x === p - 1n) {
+      if (x_r === p - 1n) {
         return true;
       }
     }
