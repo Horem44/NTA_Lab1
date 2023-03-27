@@ -1,11 +1,5 @@
 import { CONSOLE_COLORS, DATASET } from "./constants";
-import {
-  FactorizationService,
-  PrimesService,
-  ProbabilityService,
-  TimeService,
-  NumericService,
-} from "./services";
+import { MainService, PrimesService } from "./services";
 
 const primesService = new PrimesService();
 
@@ -17,9 +11,9 @@ primesService.primes$.subscribe(
       "\n"
     );
 
-    const probabilityService = new ProbabilityService();
-    const timeService = new TimeService();
-    const factorizationService = new FactorizationService(primes);
+    const mainService = new MainService(primes);
+
+    console.time("MAIN FUNCTION EXECUTION TIME: ");
 
     DATASET.forEach((data) => {
       console.log(
@@ -28,15 +22,12 @@ primesService.primes$.subscribe(
         "\n"
       );
 
-      timeService.logExecutionTime(
-        probabilityService.millerRabinTest.bind(probabilityService),
-        [data],
-        "Miller-Rabin Test"
-      );
+      mainService.main(data);
 
-      
       console.log(CONSOLE_COLORS.CYAN_FONT, "*** ---- ***", "\n");
     });
+    
+    console.timeEnd("MAIN FUNCTION EXECUTION TIME: ");
   },
   (err) =>
     console.log(

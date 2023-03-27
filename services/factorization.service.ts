@@ -6,16 +6,21 @@ export class FactorizationService {
 
   constructor(private readonly primes: bigint[]) {}
 
-  trialDivisionMethod(n: bigint) {
-    for (let i = 0; i < this.primes.length; i++)
+  trialDivisionMethod(n: bigint): bigint | null {
+    for (let i = 0; i < this.primes.length; i++){
+      if(this.primes[i] > 47){
+        return null;
+      }
+
       if (n % this.primes[i] === 0n) {
         return this.primes[i];
       }
+    }
 
     return null;
   }
 
-  pollardMethod(n: bigint) {
+  pollardMethod(n: bigint): bigint | null {
     const pollardFunction = (x: bigint) => (x * x + 1n) % n;
 
     let x = 2n;
@@ -42,7 +47,7 @@ export class FactorizationService {
     }
   }
 
-  public buildFactorBase(n: bigint) {
+  public buildFactorBase(n: bigint): void {
     const L = this.numericService.getLConstant();
 
     for (let i = 0; i < L; i++) {
@@ -52,7 +57,11 @@ export class FactorizationService {
     }
   }
 
-  brillhartMorrisonMethod(n: bigint) {
+  brillhartMorrisonMethod(n: bigint): bigint | null {
+    if (this.numericService.sqrt(n) * this.numericService.sqrt(n) === n) {
+      return null;
+    }
+
     this.buildFactorBase(n);
 
     const smoothNumbers = this.numericService.getSmoothNumbers(
@@ -73,7 +82,7 @@ export class FactorizationService {
     }
 
     const solutionsVectorsIndexes =
-      this.numericService.findSolutionsVectorsIndexes(factorizationVectors)!;
+      [...new Set(this.numericService.findSolutionsVectorsIndexes(factorizationVectors))];
 
     const X = this.numericService.calcBMX(
       n,
@@ -91,18 +100,18 @@ export class FactorizationService {
 
     let gcds;
 
-    if(X < Y){
+    if (X < Y) {
       gcds = [
         this.numericService.gcd(X + Y, n),
         this.numericService.gcd(Y - X, n),
       ];
-    }else{
+    } else {
       gcds = [
         this.numericService.gcd(X + Y, n),
         this.numericService.gcd(X - Y, n),
       ];
     }
 
-    return gcds[0] <= 1 ? gcds[1] : gcds[0];
+    return gcds[0] === 1n ? gcds[1] : gcds[0];
   }
 }

@@ -94,7 +94,7 @@ export class NumericService {
     return false;
   }
 
-  public splitToNumbers(n: bigint) {
+  public splitToNumbers(n: bigint): bigint[] {
     return n
       .toString()
       .split("")
@@ -149,12 +149,8 @@ export class NumericService {
     return result;
   }
 
-  public log2(n: bigint) {
-    return BigInt(n.toString(2).length);
-  }
-
-  public getLConstant() {
-    return 100;
+  public getLConstant(): number {
+    return 1000;
   }
 
   public sqrt(n: bigint): bigint {
@@ -189,7 +185,7 @@ export class NumericService {
     return x0;
   }
 
-  public getChainFractionCoefficients(n: bigint, iterationsCount: number) {
+  public getChainFractionCoefficients(n: bigint, iterationsCount: number): bigint[] {
     let v = 1n;
     let a = BigInt(this.sqrt(n));
     let u = a;
@@ -206,7 +202,7 @@ export class NumericService {
     return chainFractionCoefficients;
   }
 
-  public getSmoothNumbers(n: bigint, iterationsCount: number) {
+  public getSmoothNumbers(n: bigint, iterationsCount: number): bigint[][] {
     const chainFractionCoefficients = this.getChainFractionCoefficients(
       n,
       iterationsCount
@@ -264,23 +260,28 @@ export class NumericService {
     return factorizedNumber;
   }
 
-  findSolutionsVectorsIndexes(vectors: number[][]) {
-    for (let i = 0; i < vectors.length; i++) {
+  public findSolutionsVectorsIndexes(vectors: number[][]): number[] {
+    const indexes: number[] = [];
+
+    outer: for (let i = 0; i < vectors.length; i++) {
       const vector = vectors[i];
 
       for (let j = i + 1; j < vectors.length; j++) {
         if (_.isEqual(vectors[j], vector)) {
-          return [i, j];
+          indexes.push(i, j);
+          continue outer;
         }
       }
     }
+
+    return indexes;
   }
 
-  calcBMX(n: bigint, smoothNumbers: bigint[]) {
+  public calcBMX(n: bigint, smoothNumbers: bigint[]): bigint {
     return smoothNumbers.reduce((acc, num) => (num * acc) % n, 1n);
   }
 
-  calcBMY(n: bigint, smoothNumbers: bigint[]) {
+  public calcBMY(n: bigint, smoothNumbers: bigint[]): bigint {
     return smoothNumbers.reduce((acc, num) => this.sqrt(num) * acc, 1n) % n;
   }
 }

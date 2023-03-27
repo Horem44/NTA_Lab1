@@ -4,3 +4,4 @@ export * from './probability-test.service';
 export * from './time.service';
 export * from './cli.service';
 export * from './numeric.service';
+export * from './main.service';
