@@ -4,24 +4,22 @@ import {
   PrimesService,
   ProbabilityService,
   TimeService,
-  NumericService
+  NumericService,
 } from "./services";
 
 const primesService = new PrimesService();
 
 primesService.primes$.subscribe(
   (primes) => {
-
     console.log(
       CONSOLE_COLORS.GREEN_FONT,
       "*** Primes downloaded successfully ***",
       "\n"
     );
 
-    const numericService = new NumericService();
     const probabilityService = new ProbabilityService();
-    const factorizationService = new FactorizationService(primes);
     const timeService = new TimeService();
+    const factorizationService = new FactorizationService(primes);
 
     DATASET.forEach((data) => {
       console.log(
@@ -36,21 +34,15 @@ primesService.primes$.subscribe(
         "Miller-Rabin Test"
       );
 
-      timeService.logExecutionTime(
-        factorizationService.trialDivisionMethod.bind(factorizationService),
-        [data],
-        "Trial Division method"
-      );
-
-      timeService.logExecutionTime(
-        factorizationService.pollardMethod.bind(factorizationService),
-        [data],
-        "Pollard method"
-      );
-
+      
       console.log(CONSOLE_COLORS.CYAN_FONT, "*** ---- ***", "\n");
-
     });
   },
-  (err) => console.log(CONSOLE_COLORS.RED_BG, "*** Primes downloading error:", err, "***")
+  (err) =>
+    console.log(
+      CONSOLE_COLORS.RED_BG,
+      "*** Primes downloading error:",
+      err,
+      "***"
+    )
 );

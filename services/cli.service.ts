@@ -8,13 +8,13 @@ export class CLIService {
           if (
             !isNaN(Number(argv)) &&
             !isNaN(parseFloat(argv)) &&
-            parseFloat(argv) > 0
+            parseFloat(argv) > 1
           ) {
             return BigInt(argv);
           } else {
             console.log(
               CONSOLE_COLORS.RED_BG,
-              "Invalid arguments! Provide positive numbers only!"
+              "Invalid arguments! Only numbers > 1 allowed!"
             );
             process.exit(-1);
           }

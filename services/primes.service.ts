@@ -7,7 +7,7 @@ interface IPrimesResponse {
 }
 
 export class PrimesService {
-  private readonly primesAmount = 10000;
+  private readonly primesAmount = 150000;
 
   public primes$: Observable<bigint[]> = from(
     axios<IPrimesResponse>(PRIMES_URL)

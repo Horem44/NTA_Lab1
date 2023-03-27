@@ -8,6 +8,6 @@ export class TimeService {
       fn(...args) ? fn(...args).toString() : fn(...args)
     );
     console.timeEnd(fnName + " execution time");
-    process.stdout.write("\n");
+    process.stdout.write("\n"); 
   }
 }
