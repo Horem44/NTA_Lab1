@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "tsc index.ts --outDir ./dist --target esnext --moduleResolution node --module commonjs --esModuleInterop true && node ./dist/index.js",
-    "shell": 
+    "shell": "docker build -t nta-1 . && docker run -p 3000:3000 nta-1"
   },
   "author": "yegorov ilya, denis kobets FI-03",
   "license": "ISC",
