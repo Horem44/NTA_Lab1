@@ -4,7 +4,8 @@
   "description": "NTA Lab1 ",
   "main": "index.js",
   "scripts": {
-    "start": "tsc index.ts --outDir ./dist --target esnext --moduleResolution node --module commonjs --esModuleInterop true && node ./dist/index.js"
+    "start": "tsc index.ts --outDir ./dist --target esnext --moduleResolution node --module commonjs --esModuleInterop true && node ./dist/index.js",
+    "shell": 
   },
   "author": "yegorov ilya, denis kobets FI-03",
   "license": "ISC",

@@ -102,21 +102,6 @@ export class MainService {
         this.factorizationService.brillhartMorrisonMethod(pollardMethodPart)
       ) {
         this.timeService.logExecutionTime(
-          this.factorizationService.brillhartMorrisonMethod.bind(
-            this.factorizationService
-          ),
-          [pollardMethodPart],
-          "Brillhart Morrison Method"
-        );
-
-        const resultOfBMMethod =
-          this.factorizationService.brillhartMorrisonMethod(pollardMethodPart);
-
-        pollardMethodPart /= resultOfBMMethod!;
-
-        factorizedNumber.push(resultOfBMMethod!);
-
-        this.timeService.logExecutionTime(
           this.probabilityService.millerRabinTest.bind(this.probabilityService),
           [pollardMethodPart],
           "Miller-Rabin Test (BM part)"
@@ -131,6 +116,21 @@ export class MainService {
           console.log("BM part ended with result", factorizedNumber);
           return;
         }
+
+        this.timeService.logExecutionTime(
+          this.factorizationService.brillhartMorrisonMethod.bind(
+            this.factorizationService
+          ),
+          [pollardMethodPart],
+          "Brillhart Morrison Method"
+        );
+
+        const resultOfBMMethod =
+          this.factorizationService.brillhartMorrisonMethod(pollardMethodPart);
+
+        pollardMethodPart /= resultOfBMMethod!;
+
+        factorizedNumber.push(resultOfBMMethod!);
       }
     }
   }

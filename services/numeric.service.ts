@@ -185,7 +185,10 @@ export class NumericService {
     return x0;
   }
 
-  public getChainFractionCoefficients(n: bigint, iterationsCount: number): bigint[] {
+  public getChainFractionCoefficients(
+    n: bigint,
+    iterationsCount: number
+  ): bigint[] {
     let v = 1n;
     let a = BigInt(this.sqrt(n));
     let u = a;
@@ -202,7 +205,43 @@ export class NumericService {
     return chainFractionCoefficients;
   }
 
-  public getSmoothNumbers(n: bigint, iterationsCount: number): bigint[][] {
+  public decompose(n: bigint, trialDivisionMethod: Function) {
+    const decomposition: {
+      divisor: bigint;
+      power: bigint;
+    }[] = [];
+
+    while (n > 1) {
+      const divisor = trialDivisionMethod(n);
+      const exisitingDivisor = decomposition.find(
+        (element) => element.divisor === divisor
+      );
+
+      if (!divisor) {
+        break;
+      }
+
+      if (exisitingDivisor) {
+        exisitingDivisor.power++;
+      } else {
+        decomposition.push({
+          divisor,
+          power: 1n,
+        });
+      }
+
+      n = n / divisor;
+    }
+
+    return decomposition;
+  }
+
+  public getSmoothNumbers(
+    n: bigint,
+    iterationsCount: number,
+    factorBase: bigint[],
+    trialDivisionMethod: Function
+  ): bigint[][] {
     const chainFractionCoefficients = this.getChainFractionCoefficients(
       n,
       iterationsCount
@@ -219,10 +258,16 @@ export class NumericService {
       b = (chainFractionCoefficients[i] * b + bPrev) % n;
       bPrev = temp;
 
-      if ((b * b) % n > n / 2n) {
-        smoothNumbers.push([b, ((b * b) % n) - n]);
-      } else {
-        smoothNumbers.push([b, (b * b) % n]);
+      if (
+        this.decompose(((b * b) % n) - n, trialDivisionMethod).every(
+          (element) => factorBase.includes(element.divisor)
+        )
+      ) {
+        if ((b * b) % n > n / 2n) {
+          smoothNumbers.push([b, ((b * b) % n) - n]);
+        } else {
+          smoothNumbers.push([b, (b * b) % n]);
+        }
       }
     }
 

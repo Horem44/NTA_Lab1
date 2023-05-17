@@ -66,7 +66,9 @@ export class FactorizationService {
 
     const smoothNumbers = this.numericService.getSmoothNumbers(
       n,
-      this.FactorBase.length
+      this.FactorBase.length,
+      this.FactorBase,
+      this.trialDivisionMethod
     );
 
     const bVector = smoothNumbers.map((smoothNumber) => smoothNumber[0]);
